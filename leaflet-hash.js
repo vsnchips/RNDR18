@@ -183,3 +183,20 @@
 		this._hash.removeFrom();
 	};
 })(window);
+
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+function getRandomValue(p5, x, y, z, name, min, max, scale) {
+  let hashNumber = name.hashCode();
+  let noiseVal = p5.noise(x * scale, y * scale, (z + hashNumber));
+  return p5.map(noiseVal, 0, 1, min, max);
+}
