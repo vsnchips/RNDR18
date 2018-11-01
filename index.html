@@ -1,6 +1,81 @@
 <head>
-    <style> body {padding: 0; margin: 0;} </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js"></script>
+    <script src="https://d3js.org/d3-random.v1.min.js"></script>
+    <script language="javascript" type="text/javascript" src="z_purview_helper.js"></script>
+    <script language="javascript" type="text/javascript" src="z_focused_random.js"></script>
+    <script type="text/javascript" src="LZWEncoder.js"></script>
+    <script type="text/javascript" src="NeuQuant.js"></script>
+    <script type="text/javascript" src="GIFEncoder.js"></script>
+    <script type="text/javascript" src="b64.js"></script>
+    <script type="text/javascript" src="z_recorder.js"></script>
+    <script src="vertex.glsl"></script>
+    <script src="frag_helpers.glsl"></script>
+    <script src="shader.glsl"></script>
+    <script src="deCastLines.glsl"></script>
+    <script language="javascript" type="text/javascript" src="design1.js"></script>
+    <style>
+        body   { padding: 0; margin: 0; }
+        .inner { position: absolute; }
+        #controls {
+            font: 300 12px "Helvetica Neue";
+            padding: 5;
+            margin: 5;
+            background: #f0f0f0;
+            opacity: 0.0;
+            -webkit-transition: opacity 0.2s ease;
+            -moz-transition: opacity 0.2s ease;
+            -o-transition: opacity 0.2s ease;
+            -ms-transition: opacity 0.2s ease;
+        }
+        #controls:hover { opacity: 0.9; }
+    </style>
+
+
 </head>
+
 <body style="background-color:white">
-<img src="sketch.png" width="960" height="720"/>
+  <div class="outer">
+<div class="inner" id="controls" height="480px">
+  <table>
+      <tr>
+        <td>Pattern</td>
+        <td id='Pattern'></td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td id='Speed'></td>
+      </tr>
+      <tr>
+        <td>Color1 Hue</td>
+        <td id='Color1_Hue'></td>
+      </tr>
+      <tr>
+        <td>Color1 Brightness</td>
+        <td id='Color1_Brightness'></td>
+      </tr>
+      <tr>
+        <td>Color2 Hue</td>
+        <td id='Color2_Hue'></td>
+      </tr>
+      <tr>
+        <td>Color2 Brightness</td>
+        <td id='Color2_Brightness'></td>
+      </tr>
+      <tr>
+        <td>Color3 Hue</td>
+        <td id='Color3_Hue'></td>
+      </tr>
+      <tr>
+        <td>Color3 Brightness</td>
+        <td id='Color3_Brightness'></td>
+      </tr>
+      <tr>
+        <td>Gif Capture On</td>
+        <td id='gcap'></td?>
+    </table>
+</div>
+</div>
+</table>
 </body>
