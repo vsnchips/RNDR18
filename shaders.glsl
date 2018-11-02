@@ -17,81 +17,6 @@ uniform float u_Zoom;
 uniform vec2 u_nowView;
 uniform vec2 u_viewPort;
 
-
-// HELPER FUNCTIONS
-vec2 euc2pol(vec2 uv){ 
-	  return vec2(atan(uv.x,uv.y), length(uv));
-}
-vec2 pol2euc(vec2 uv){ 
-	  return vec2( uv.y * sin(uv.x), uv.y * cos(uv.x));
-}
-
-vec2 basis(vec2 p , vec2 bx, vec2 by){
- vec2 n = p.x * bx + p.y * by;
-  return n;
-}
-
-vec2 pointRelLine(vec2 p,vec2 a, vec2 b){
-  vec2 bx = normalize(b - a);
-  vec2 by = vec2(bx.y,-bx.x);
-  vec2 bc = basis(p-a,bx,by);
-
-  return bc; 
-}
-
-float lineD(vec2 p , vec2 a, vec2 b){
-  vec2 cp = pointRelLine(p,a,b);
-  float l=length(b-a);
- // return abs(cp.y);
-  return length(vec2(max(abs(cp.x-l/2.) - (l/2.), 0.) , cp.y));
-}
-
-#define MAX_DEGREE 10
-
-int lineCount(int deg){
- int acc = 0;
-  while(deg>0){
-  acc += deg--;
-  }
-  return acc;
-}
-
-#define MAX_LINE 55 
-
-vec2 deCast(inout float linedists[MAX_LINE], float s, vec2 cats[MAX_DEGREE+1], int deg, vec2 cp){
-  int i = deg;
-    int lid = 0;
-  while (i>=0){
-   for( int j=0; j<i; j++){
-     linedists[lid]=lineD(cp,cats[j],cats[j+1]);
-     lid++;
-     cats[j] = mix(cats[j],cats[j+1], s);
-  
-   } i--;
-     //linedists[ lineCount(deg)] = lineD(cp,cats[0], cats[1]);
-
-  }
- return cats[0];
-
-}
-
-vec2[MAX_DEGREE+1] patternA(){
- 
-  vec2 catps[MAX_DEGREE+1];
-
-  float x = -1.;
-  float y = -1.;
-  float dx = 2.;
-  float dy = 0.5;
-  for (int i = 0; i < 5; i++){
-     x += dy * mod(1.+float(i),2.);
-     y += dy * mod(float(i),2.0);
-    catps [i] = vec2(x,y);
-  }
-  return catps; 
-
-}
-
 void main(void){
 
   vec2 cats[MAX_DEGREE+1];
@@ -110,16 +35,16 @@ void main(void){
   //uv *= 2.0;
   uv *= u_Zoom; 
   uv += u_nowView/u_viewPort;
-  
+
   vec2 pp = euc2pol(uv);
-  
+
   float vol = 1.0;
   float fa1=30. + 10.*sin(iTime/3.);
   float fa2=20. ;
 
   float fb1=30. + 10.*sin(iTime/5.);
   float fb2=20. ;
-   
+
   float s1x = vol*sin(iTime+fa1*uv.x);
   float s1y = vol*sin(fa2*uv.y);
 
@@ -127,25 +52,19 @@ void main(void){
   float s2y = vol*sin(fb2*uv.y*fb2);
 
   float layer2 = (s1x+s1y+ s2x + s2y);  
-  
-// Abs Boxing
+
+  // Abs Boxing
   float hf = 4.;
   float vf = 2.;
- 
+
   vol = + 0.5;
   float hd = vol*abs(fract(uv.x*hf)-0.5);
   float vd = vol*abs(fract(uv.y*vf)-0.5);
-  
+
   float md = min(hd,vd);
-  //col += layer2;
-  //col += hd;
-  //
-  //col += vd;
-  //col += md;
-  //
-  //
-  #define DEG 4
-  #define fDEG 6.0
+
+#define DEG 4
+#define fDEG 6.0
 
   //cats[MAX_DEGREE+1];
   cats[0] = vec2(-1.,-1.);
@@ -176,36 +95,37 @@ void main(void){
 
   col = vec4(0.,0.,0.,1.);
 
-  #define DDIV DEG
+#define DDIV DEG
   //TODO: Paramaterise Phases
-for (int j = 0 ; j < DEG/DDIV; j++ ){  // Integrate concurrent  phase
-for (int i = 0 ; i < 9; i++ ){  //Loop checks neighbours
-  float lineds[MAX_LINE];
-  vec2 bp =  deCast( lineds , 
-    fract(float(iTime)+float(j*DDIV)/fDEG) * length(iMouse-uv),   // The main slider
-    cats, 
-    DEG, 
-    cuv [i]); //bp = bezierPoint
+  for (int j = 0 ; j < DEG/DDIV; j++ ){  // Integrate concurrent  phase
+    for (int i = 0 ; i < 9; i++ ){  //Loop checks neighbours
+      float lineds[MAX_LINE];
+      vec2 bp =  deCast( lineds , 
+          fract(float(iTime)+float(j*DDIV)/fDEG) * length(iMouse-uv),   // The main slider
+          cats, 
+          DEG, 
+          cuv [i]); //bp = bezierPoint
 
-  float bpl = length(bp-fuv);
+      float bpl = length(bp-fuv);
 
-int lc = lineCount(DEG);
-  for (int li = 0; li <  lc; li++){
-    col.rgb = max( 
-      col.rgb,
-    ( 
-    (1.-smoothstep(lineds[li],0.,0.01))
-      )
+      int lc = lineCount(DEG);
+      for (int li = 0; li <  lc; li++){
+        col.rgb = max( 
+            col.rgb,
+            ( 
+             (1.-smoothstep(lineds[li],0.,0.01))
+            )
 
-    );
-      col.rb +=  1./(float(1))*(1.-smoothstep(lineds[li],0.,0.01));
+            );
 
+        col.rb +=  1./(float(1))*(1.-smoothstep(lineds[li],0.,0.01));
+
+      }
+
+      float pd = bpl;
+
+    }
   }
 
- float pd = bpl;
-  
-  }
-}
-
-	comp = clamp(col,0.,1.);
+  comp = clamp(col,0.,1.);
 }`;

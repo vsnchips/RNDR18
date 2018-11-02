@@ -11,7 +11,7 @@ struct voro_check{
 } the_voro_check;
 
 float voronoid (in vec2 p){
-  float d= FAR;
+  float d = FAR;
   for (int i = 0 ; i< u_neighCount; i++ ) {
     d = min(d,length( p - the_voro_check.neighbors[i]));
   }

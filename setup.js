@@ -23,6 +23,23 @@ var view_last = {x:0, y:0};
 var u_nowView = view;
 var u_Zoom=1;
 
+var u_vor_ps = new Array();
+
+function init_voronoi_array(){
+
+  u_vor_ps.clear();
+
+  for (var i = 0; i < 1024; i++ ){
+    const voroRange = 2;
+    const half_voro = voroRange/2;
+
+    var newVec = {x: Math.random() * voroRange - half_voro,
+                  y: Math.random() * voroRange - half_voro };
+    u_vor_ps.push(newVec);
+  }
+}
+
+
 function mouseMove( e ) {
   if (mousedown){
   view = { 
@@ -130,7 +147,10 @@ var squareVertexPositionBuffer;
 
 function gl_boilerplate_init(){
 
-var fragSrc = frag_layout +
+var fragSrc = 
+    frag_layout +
+    frag_helpers +
+    frag_decast +
     frag_distance_functions +
     frag_body;
   vertshader = gc.createShader(gc.VERTEX_SHADER);
