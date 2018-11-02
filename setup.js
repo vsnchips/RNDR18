@@ -1,4 +1,7 @@
 //Globals
+
+const ZOOM = 2.7
+
 var gc;
 var appgl = {}; //struct for app's graphics stuff
 let anchors = [];
@@ -16,10 +19,17 @@ var dragStart;
 var view = {x:0, y:0};
 var view_last = {x:0, y:0};
 
+//shader uniforms
+var u_nowView = view;
+var u_Zoom;
+
 function mouseMove( e ) {
   if (mousedown){
-  view = { x: view_last.x + e.pageX - dragStart.pageX,
-           y:   view_last.y + e.pageY - dragStart.pageY}
+  view = { 
+          x: view_last.x - (e.pageX - dragStart.pageX ) * Math.pow(ZOOM,-worldMap._zoom),
+
+          y: view_last.y + (e.pageY - dragStart.pageY ) * Math.pow(ZOOM,-worldMap._zoom)
+  }
   console.log(view);
   }
 }

@@ -160,4 +160,4 @@ attrib.addAttribution(attrStr)
 worldMap.addControl(attrib)
 
 resizeMap();
- draw_the_map();
+do_a_frame();
