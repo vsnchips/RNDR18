@@ -130,7 +130,9 @@ var squareVertexPositionBuffer;
 
 function gl_boilerplate_init(){
 
-var fragSrc = frag_layout + frag_body; 
+var fragSrc = frag_layout +
+    frag_distance_functions +
+    frag_body;
   vertshader = gc.createShader(gc.VERTEX_SHADER);
   fragshader = gc.createShader(gc.FRAGMENT_SHADER);
  gc.shaderSource(vertshader,vertSrc);
