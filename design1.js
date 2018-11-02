@@ -35,9 +35,9 @@ function setup () {
   the_canvas.onmousemove = function(ev){
   mx = 2 * ev.clientX / the_canvas.width - 1;
   my = 2 * ev.clientY / the_canvas.height - 1;
-    console.log( mx );
-    console.log( my );
-  // 
+    //console.log( mx );
+    // console.log( my );
+    // 
 } 
   background(128);
 
@@ -115,24 +115,27 @@ function keyTyped() {
   if (key == '!') {
     saveBlocksImages();
 }
-}
 
 var vertshader, fragshader;
 
 var  frag_helpers,
-     frag_tracers
-     frag_intersections,
-     frag_distance_functions
-     frag_procedural_map_main;
-;
+var     frag_tracers;
+  var   frag_intersections;
+   var  frag_distance_functions;
+     var frag_procedural_map_main;
+
 var squareVertexPositionBuffer;
 
-fragSrc = frag_layout + frag_body; 
+var fragSrc = frag_layout + frag_body; 
+
 function gl_boilerplate_init(){
   vertshader = gc.createShader(gc.VERTEX_SHADER);
   fragshader = gc.createShader(gc.FRAGMENT_SHADER);
  gc.shaderSource(vertshader,vertSrc);
- gc.shaderSource(fragshader,fragSrc);
+
+  
+  //gc.shaderSource(fragshader,fragSrc);
+ gc.shaderSource(fragshader,frag_body);
  
  gc.compileShader(vertshader);
  console.log(`vert shader:${gc.getShaderInfoLog(vertshader)}`);

@@ -7,7 +7,7 @@ in vec2 fragCoords;
 out vec4 comp;
 `;
 
-var frag_body = `
+var frag_body=`
 
 //uniforms
 uniform float iTime;

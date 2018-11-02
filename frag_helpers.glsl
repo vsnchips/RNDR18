@@ -1,4 +1,4 @@
-var  frag_helpers=`
+var frag_helpers=`
 // HELPER FUNCTIONS
 vec2 euc2pol(vec2 uv){ 
 	  return vec2(atan(uv.x,uv.y), length(uv));
