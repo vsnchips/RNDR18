@@ -21,7 +21,7 @@ var view_last = {x:0, y:0};
 
 //shader uniforms
 var u_nowView = view;
-var u_Zoom;
+var u_Zoom=1;
 
 function mouseMove( e ) {
   if (mousedown){

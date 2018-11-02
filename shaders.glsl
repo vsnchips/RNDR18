@@ -107,7 +107,8 @@ void main(void){
   //col.g = fragCoords.y;
 
   vec2 uv = fragCoords;
-//  uv *= u_Zoom; 
+  //uv *= 2.0;
+  uv *= u_Zoom; 
   uv += u_nowView/u_viewPort;
   
   vec2 pp = euc2pol(uv);

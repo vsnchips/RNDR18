@@ -45,7 +45,8 @@ function update(){
   const EASE = 0.2;
 //  u_nowView.x = u_nowView.x + (view.x - u_nowView.x) * EASE;
 //  u_nowView.y = u_nowView.y + (view.y - u_nowView.y) * EASE;
-  u_Zoom = u_Zoom + (Math.pow(-Math.E,worldMap._zoom) - u_Zoom) * EASE;
+  u_nowView = view;
+  u_Zoom = u_Zoom + (Math.pow(Math.E,-worldMap._zoom) - u_Zoom) * EASE;
 
 }
 function draw_the_map(){
