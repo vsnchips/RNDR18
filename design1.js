@@ -5,12 +5,7 @@ var appgl = {}; //struct for app's graphics stuff
 
 let anchors = [];
 const frameMax = 60;
-let recording = false;
-let gifRecorder = null;
-let buffersPerFrame = 1;
 
-var hueslider1, hueslider2, hueslider3;
-var brightslider1, brightslider2, brightslider3;
 var speedslider;
 var patternselect;
 var viewQuad;
@@ -18,10 +13,8 @@ var viewQuad;
 var mx=0,my=0;
 
 function setup () {
-  //  createCanvas(960, 480);
-  //  make a webgl canvas
  
-  frameRate(30);
+  frameRate(60);
   canvas.style.visibility='hidden';
   canvas.remove();
 
@@ -45,33 +38,8 @@ function setup () {
 
 
 // Controls
-  
-  hueslider1 = createSlider(0,100,50);
-  hueslider1.parent('Color1_Hue')
-  hueslider2 = createSlider(0,100,50);
-  hueslider2.parent('Color2_Hue')
-  hueslider3 = createSlider(0,100,50);
-  hueslider3.parent('Color3_Hue')
-
-  brightslider1 = createSlider(0,100,50);
-  brightslider1.parent('Color1_Brightness')
-  brightslider2 = createSlider(0,100,50);
-  brightslider2.parent('Color2_Brightness')
-  brightslider3 = createSlider(0,100,50);
-  brightslider3.parent('Color3_Brightness')
   speedslider = createSlider(0,100,50);
   speedslider.parent('Speed');
-
-  patternselect = createSelect();
-  patternselect.option('blocky')
-  patternselect.option('diagonals')
-  patternselect.option('X - diagonals')
-  patternselect.parent('Pattern');
-
-  videoCapture = document.createElement('input');
-  videoCapture.setAttribute("type","checkbox");
-  document.getElementById('gcap').appendChild(videoCapture);
-  //videoCapture.parentElement= document.getElementById('gcap');
 
 }
 
@@ -82,7 +50,6 @@ function glObject(){
 
 
 function draw () {
-
   //console.log ("mx" + mx);
   if (mouseIsPressed) {
     fill(0);
@@ -91,8 +58,7 @@ function draw () {
     fill(255);
   }
 
-// updates
- 
+  // updates
   var iTime = speedslider.value()*frameCount/30 * (1/2000);
   gc.uniform1f(gc.getUniformLocation(appgl.prog,"iTime"),iTime*5);
 
@@ -104,38 +70,32 @@ function draw () {
   gc.drawArrays(gc.TRIANGLE_FAN,0,4);
   gc.disableVertexAttribArray(viewQuad.vPosAttribPtr);
  
-  if (recording) {
-    gifRecorder.addBuffer();
-  }
-
 
 }
 
 function keyTyped() {
   if (key == '!') {
     saveBlocksImages();
+  }
 }
 
 var vertshader, fragshader;
 
-var  frag_helpers,
-var     frag_tracers;
-  var   frag_intersections;
-   var  frag_distance_functions;
-     var frag_procedural_map_main;
+var  frag_helpers;
+var  frag_tracers;
+var  frag_intersections;
+var  frag_distance_functions;
+var  frag_procedural_map_main;
 
 var squareVertexPositionBuffer;
 
-var fragSrc = frag_layout + frag_body; 
 
 function gl_boilerplate_init(){
+var fragSrc = frag_layout + frag_body; 
   vertshader = gc.createShader(gc.VERTEX_SHADER);
   fragshader = gc.createShader(gc.FRAGMENT_SHADER);
  gc.shaderSource(vertshader,vertSrc);
-
-  
-  //gc.shaderSource(fragshader,fragSrc);
- gc.shaderSource(fragshader,frag_body);
+ gc.shaderSource(fragshader,fragSrc);
  
  gc.compileShader(vertshader);
  console.log(`vert shader:${gc.getShaderInfoLog(vertshader)}`);
@@ -175,11 +135,5 @@ function gl_boilerplate_init(){
 }
 
 function mousePressed() {
-  if (videoCapture.checked){ 
-   console.log("vid!");
-  if(recording == false) {
-    recording = true;
-    gifRecorder = new p5recorder(frameMax, "wallpaper.gif" ,25 , 0, 2);
-  }
-  }
 }
+
