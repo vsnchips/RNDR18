@@ -119,7 +119,11 @@ if (typeof tourSeed === 'undefined') {
 }
 
 function clickHome() {
-//  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
+  //  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
+  view.x = tourPath [0][1];
+  view.y = tourPath [0][2];
+  worldMap._zoom = tourPath[0][0];
+
 }
 
 //worldMap.globalFrameCount  = 0;

@@ -31,6 +31,7 @@ function mouseMove( e ) {
           y: view_last.y + (e.pageY - dragStart.pageY ) * Math.pow(ZOOM,-worldMap._zoom)
   }
   console.log(view);
+  //u_nowView = view;
   }
 }
 
