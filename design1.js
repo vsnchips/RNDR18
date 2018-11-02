@@ -12,14 +12,11 @@ var viewQuad;
 
 var mx=0,my=0;
 
-function setup () {
+var viewSize;
+
+function setup_the_canvas () {
  
-  frameRate(60);
-  canvas.style.visibility='hidden';
-  canvas.remove();
-
   body = document.getElementsByTagName("body");
-
   the_canvas = document.createElement("canvas");
   the_canvas.width=960; the_canvas.height=480;
   body[0].appendChild(the_canvas);
@@ -28,6 +25,7 @@ function setup () {
   the_canvas.onmousemove = function(ev){
   mx = 2 * ev.clientX / the_canvas.width - 1;
   my = 2 * ev.clientY / the_canvas.height - 1;
+  
     //console.log( mx );
     // console.log( my );
     // 
@@ -36,10 +34,7 @@ function setup () {
 
   gl_boilerplate_init ();
 
-
 // Controls
-  speedslider = createSlider(0,100,50);
-  speedslider.parent('Speed');
 
 }
 

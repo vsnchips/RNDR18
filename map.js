@@ -75,22 +75,6 @@ var s = function( p ) {
 
   };
 
-  p.draw = function() {
-    if ("_L_size" in p && "_L_nw" in p) {
-      var nw = p._L_nw;
-      var t_size = p._L_size;
-      var zoom = p._L_zoom;
-      var m_x1 = nw.lng;
-      var m_y1 = nw.lat;
-      var m_x2 = m_x1 + t_size;
-      var m_y2 = m_y1 + t_size;
-      var depth = p._L_depth;
-      p.noiseSeed(p._L_seed)
-      drawGrid(p, m_x1, m_x2, m_y1, m_y2, depth, zoom);
-    }
-  };
-};
-
 var tiles = new L.GridLayer({continuousWorld: true});
 tiles.createTile = function(coords) {
   if (!("_hash_parsed" in worldMap)) {
@@ -207,6 +191,9 @@ function clickDemo() {
 function clickReset() {
   window.location.reload();
 }
+
+
+setup_the_canvas();
 
 attrib = new L.Control.Attribution
 attrib.setPrefix("")

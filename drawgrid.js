@@ -13,6 +13,31 @@ var viewQuad;
 
 var mx=0,my=0;
 
+function setup_the_canvas () {
+ 
+  body = document.getElementsByTagName("body");
+  the_canvas = document.createElement("canvas");
+  the_canvas.width=960; the_canvas.height=480;
+  body[0].appendChild(the_canvas);
+  gc = the_canvas.getContext("webgl2" ,{preserveDrawingBuffer: true});
+ 
+  the_canvas.onmousemove = function(ev){
+  mx = 2 * ev.clientX / the_canvas.width - 1;
+  my = 2 * ev.clientY / the_canvas.height - 1;
+  
+    //console.log( mx );
+    // console.log( my );
+    // 
+} 
+  background(128);
+
+  gl_boilerplate_init ();
+
+// Controls
+
+}
+
+
 function glObject(){
   var vPosAttribPtr;
   var vertBuffer;
@@ -93,18 +118,6 @@ var tourPath = [
 // This version draws two rectangles and two ellipses.
 // The rectangles are 960x720 and centered at 512,512.
 function drawGrid(p5, x1, x2, y1, y2, z, zoom) {
-  // debug - show border
-  // p5.noFill();
-   p5.stroke(255, 0, 0)
-   p5.rect(0, 0, 255, 255);
-
-  //console.log ("mx" + mx);
-//  if (mouseIsPressed) {
-//    fill(0);
-//  }
-//  else {
-//   fill(255);
-//  }
 
   // updates
   var iTime = p5.millis()/60 * (1/2000);
