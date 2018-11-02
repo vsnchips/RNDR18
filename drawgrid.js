@@ -1,4 +1,5 @@
 /*
+*
  * This is the function to implement to make your own abstract design.
  *
  * arguments:
@@ -27,4 +28,27 @@ function drawGrid(p5, x1, x2, y1, y2, z, zoom) {
   // p5.noFill();
   // p5.stroke(255, 0, 0)
   // p5.rect(0, 0, 255, 255);
+}
+var frame=0;
+function draw_the_map(){
+
+  frame++;
+  //console.log(frame);
+
+  // updates
+  
+  var iTime = frame/30 * (1/20);
+  //var iTime = 1 *  (1/2000);
+  gc.uniform1f(gc.getUniformLocation(appgl.prog,"iTime"),iTime*5);
+
+  gc.uniform2f(gc.getUniformLocation(appgl.prog,"iMouse"), mx,my);
+  
+  gc.clearColor(0,0.8,0,1);
+  gc.clear(gc.COLOR_BUFFER_BIT);
+  gc.enableVertexAttribArray(viewQuad.vPosAttribPtr);
+  gc.drawArrays(gc.TRIANGLE_FAN,0,4);
+  gc.disableVertexAttribArray(viewQuad.vPosAttribPtr);
+
+
+  requestAnimationFrame(draw_the_map);
 }

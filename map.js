@@ -29,32 +29,9 @@ worldMap._p5_depth = 0.0;
 var hash = new L.Hash(worldMap);
 // console.log("Seed now", worldMap._p5_seed)
 
-// sloppy way to set tile size
-var g_tileSize = null;
 
-var s = function( p ) {
 
-  p.setup = function() {
-    canvas = p.createCanvas(g_tileSize.x, g_tileSize.y);
-    p.noLoop();
-  };
-
-  p.draw = function() {
-    if ("_L_size" in p && "_L_nw" in p) {
-      var nw = p._L_nw;
-      var t_size = p._L_size;
-      var zoom = p._L_zoom;
-      var m_x1 = nw.lng;
-      var m_y1 = nw.lat;
-      var m_x2 = m_x1 + t_size;
-      var m_y2 = m_y1 + t_size;
-      var depth = p._L_depth;
-      p.noiseSeed(p._L_seed)
-      drawGrid(p, m_x1, m_x2, m_y1, m_y2, depth, zoom);
-    }
-  };
-};
-
+/*
 var tiles = new L.GridLayer({continuousWorld: true});
 tiles.createTile = function(coords) {
   if (!("_hash_parsed" in worldMap)) {
@@ -99,6 +76,7 @@ tiles.createTile = function(coords) {
 tiles.on('tileunload', function(e){
   e.tile.rendering = false;
 })
+*/
 
 // tiles.on('tileload', function(e){
 //   /** @type {HTMLCanvasElement} */
@@ -118,7 +96,9 @@ tiles.on('tileunload', function(e){
 //   }
 // }, 1000)
 
-tiles.addTo(worldMap)
+
+//tiles.addTo(worldMap)
+
 
 var curLinkIndex = 0;
 
@@ -139,14 +119,14 @@ if (typeof tourSeed === 'undefined') {
 }
 
 function clickHome() {
-  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
+//  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
 }
 
-worldMap.globalFrameCount  = 0;
+//worldMap.globalFrameCount  = 0;
 
 if(typeof do_animation !== 'undefined' && do_animation) {
   (function doCounter() {
-    worldMap.globalFrameCount = worldMap.globalFrameCount + 1;
+  //  worldMap.globalFrameCount = worldMap.globalFrameCount + 1;
     requestAnimationFrame(doCounter);
   })()
 }
@@ -154,9 +134,9 @@ if(typeof do_animation !== 'undefined' && do_animation) {
 function clickDemo() {
   if(worldMap._p5_seed != tourSeed) {
     var center = worldMap.getCenter();
-    var zoom = worldMap.getZoom();
-    worldMap._p5_seed = tourSeed;
-    tiles.redraw();
+//    var zoom = worldMap.getZoom();
+   // worldMap._p5_seed = tourSeed;
+    //tiles.redraw();
     // worldMap.setView(center, zoom, {reset: true});
     curLinkIndex = 0;
   }
@@ -164,7 +144,7 @@ function clickDemo() {
     curLinkIndex = (curLinkIndex + 1) % tourPath.length
   }
   var curDest = tourPath[curLinkIndex]
-  worldMap.flyTo([curDest[1], curDest[2]], curDest[0]);
+  //worldMap.flyTo([curDest[1], curDest[2]], curDest[0]);
 }
 
 function clickReset() {
@@ -179,3 +159,5 @@ attrStr += '<a href="#" onclick="javascript:clickDemo();">tour</a>'
 attrib.addAttribution(attrStr)
 worldMap.addControl(attrib)
 
+resizeMap();
+ draw_the_map();
