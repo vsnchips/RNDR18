@@ -75,7 +75,8 @@ float nearestEccentric_WithZoom_radius( vec2 p, float n, float volume, int quant
   float d = FAR;
   
   // Transform the view to the coordinates of the neighborhood
-  vec2 tView = vec2(float(quant)) * u_nowView * u_Zoom;
+  //vec2 tView = vec2(float(quant)*u_nowView*u_Zoom);
+  vec2 tView = vec2(float(quant)*u_nowView*u_Zoom/u_viewPort);
 
   // Sample nxn neighborhood
  
@@ -90,11 +91,14 @@ float nearestEccentric_WithZoom_radius( vec2 p, float n, float volume, int quant
       float focus_Length = length(tView - jitPoint);
       //
 
-  if (focus_Length < radius){ //Split this node it its close to the focus
+  if (focus_Length/float(quant) < u_Zoom*radius){ //Split this node it its close to the focus
 
-        d = min(d-0.0f, 1.-LEVEL_RATIO_QUANT*float(quant) *
-                        nearestEccentric(p,n,volume*LEVEL_RATIO_VOL, 
-                          int(float(quant)*LEVEL_RATIO_QUANT)));  
+        d = min(d-0.0f, 0.+ LEVEL_RATIO_QUANT*float(quant) *
+                        nearestEccentric(p,n,volume, 
+                          int(float(quant)*LEVEL_RATIO_QUANT))
+                        /
+                        focus_Length
+                        );  
       } else
 
      d = min( d, uv_Length);
