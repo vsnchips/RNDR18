@@ -25,5 +25,4 @@ float voronoid (vec2 p){
 return d;
 
 }
-
 `;
