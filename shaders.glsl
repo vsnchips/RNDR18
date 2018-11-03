@@ -10,7 +10,7 @@ out vec4 comp;
 
 //CONSTANTS AND DEFINES
 const float FAR = 99999999.f;
-const float VOLUME = 1.f;
+const float VOLUME = 4.f;
 const float NEIGH_SIZE = 5.f * VOLUME;
 // CELLS PER UNIT UV
 const int QUANT = 10;                
@@ -165,7 +165,7 @@ void main(void){
 //  col += 100.f*tileVoro;
 
   //col.r += length(jitter(ivec2(uv*1000.f), VOLUME));
-  col.br += 0.01*(jitter(ivec2(uv*100.f), VOLUME));
+ // col.br += 0.01*(jitter(ivec2(uv*100.f), VOLUME));
 
   //col.g += random2D( floor(vec2(uv*100.f)) );
 
