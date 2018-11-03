@@ -41,24 +41,27 @@ float random2D (in vec2 st){
 vec2 jitter( in ivec2 uv, float volume){
   return vec2(uv) - vec2(0.5*volume)
     + (volume * 
-      random2D( vec2(uv ))); //Assume that the pseudo noise is unbiased enough
+      random2D( vec2( uv ))); //Assume that the pseudo noise is unbiased enough
 }
 
 // Quantising the uv enforces consistency
 
-float nearestEccentric( vec2 p, float n, float volume ){
-  ivec2 quantHome =  ivec2( floor (p) );
-  float f = FAR;
+float nearestEccentric( vec2 p, float n, float volume, int quant ){
+  
+  vec2 multHome = vec2(float(quant)) * p;
+  ivec2 quantHome =  ivec2( floor (p*float(quant)) );
+
+  float d = FAR;
   // Sample nxn neighborhood
   // It round the dimension up to the nearest odd number
-  float d;
+
   for (float i=float(quantHome.x)-n/2.f; i < float(quantHome.x)+n/2.f; i++){
     for (float j=float(quantHome.y)-n/2.f; j <float(quantHome.y)+n/2.f; j++){
       ivec2 tryCell = ivec2 (i,j) ;
-      d = min(d, length(p - jitter(tryCell, volume)));
+      d = min(d, length(multHome - jitter(tryCell, volume)));
     }
   }
-  return d;
+  return d/float(quant);
 }
 
 

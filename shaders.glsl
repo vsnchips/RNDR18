@@ -10,6 +10,10 @@ out vec4 comp;
 
 //CONSTANTS AND DEFINES
 const float FAR = 99999999.f;
+const float VOLUME = 1.f;
+const float NEIGH_SIZE = 5.f * VOLUME;
+// CELLS PER UNIT UV
+const int QUANT = 10;                
 `;
 
 var frag_body =`
@@ -25,6 +29,18 @@ uniform vec2 u_viewPort;
 
 void main(void){
 
+  vec4 col = vec4(0.,0.,0.,1.);
+  vec2 uv = fragCoords;
+  //uv *= 2.0;
+  uv *= u_Zoom; 
+  uv += u_nowView/u_viewPort;
+
+  vec2 pp = euc2pol(uv);
+
+
+  // Old deCast setup code
+
+  /* 
   vec2 cats[MAX_DEGREE+1];
   cats[0] = vec2(-1.,-1.);
   cats[1] = vec2(1.,-1.);
@@ -33,17 +49,8 @@ void main(void){
   cats[4] = vec2(-1,1.);
   cats[5] = vec2(1.,1.);
 
-  vec4 col = vec4(0.,0.,0.,1.);
   //col.r = fragCoords.x;
   //col.g = fragCoords.y;
-
-  vec2 uv = fragCoords;
-  //uv *= 2.0;
-  uv *= u_Zoom; 
-  uv += u_nowView/u_viewPort;
-
-  vec2 pp = euc2pol(uv);
-
   float vol = 1.0;
   float fa1=30. + 10.*sin(iTime/3.);
   float fa2=20. ;
@@ -100,6 +107,7 @@ void main(void){
 
   col = vec4(0.,0.,0.,1.);
 
+
 #define DDIV DEG
   //TODO: Paramaterise Phases
   for (int j = 0 ; j < DEG/DDIV; j++ ){  // Integrate concurrent  phase
@@ -131,8 +139,11 @@ void main(void){
 
     }
   }
+*/
 
 
+/*
+////////////////////////// Stage 1
   //gather neighbors
   for (int i = 0; i < NEIGHCOUNT; i ++ ){
     the_voro_check.neighbors[i] = vec2(u_voro_ps[i*2],u_voro_ps[2*1]);
@@ -140,14 +151,26 @@ void main(void){
 
   }
 
-
   col.rgb = vec3(
       1. * voronoid ( uv *  2. ) 
       );
-
-
   col.b = 1.f * u_voro_ps[int(10.*iTime)%64];
+*/
 
+
+//////////////////////////   Stage 2
+
+  float tileVoro = nearestEccentric(uv, NEIGH_SIZE,VOLUME, QUANT);
+
+//  col += 100.f*tileVoro;
+
+  //col.r += length(jitter(ivec2(uv*1000.f), VOLUME));
+  col.br += 0.01*(jitter(ivec2(uv*100.f), VOLUME));
+
+  //col.g += random2D( floor(vec2(uv*100.f)) );
+
+  col.g += 10.f*tileVoro;
+  
   comp = clamp(col,0.,1.);
 }`;
 
