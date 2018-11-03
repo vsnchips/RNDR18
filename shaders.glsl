@@ -6,6 +6,10 @@ precision highp float;
 in vec2 fragCoords;
 
 out vec4 comp;
+
+
+//CONSTANTS AND DEFINES
+const float FAR = 99999999.f;
 `;
 
 var frag_body =`

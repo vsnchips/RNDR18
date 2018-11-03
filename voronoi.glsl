@@ -7,7 +7,6 @@ vec2 vor_ps[128];
 
 #define NEIGHCOUNT 8
 
-const float FAR = 99999999.f;
 
 struct voro_check{
   vec2 neighbors[NEIGHCOUNT];
