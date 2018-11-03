@@ -21,8 +21,6 @@ float voronoid (vec2 p){
     d = min(d,  length( p - vec2(u_voro_ps[i*2], u_voro_ps[i*2+1])));
 //    d = min( d, 3. * length( p - the_voro_check.neighbors[5]));
   }
-
 return d;
-
 }
 `;
