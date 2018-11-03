@@ -13,7 +13,7 @@ const float FAR = 99999999.f;
 const float VOLUME = 4.f;
 const float NEIGH_SIZE = 5.f * VOLUME;
 // CELLS PER UNIT UV
-const int QUANT = 10;                
+const int QUANT = 2;                
 `;
 
 var frag_body =`
@@ -169,8 +169,10 @@ void main(void){
 
   //col.g += random2D( floor(vec2(uv*100.f)) );
 
-  col.g += 10.f*tileVoro;
-  
+  col.g += float(QUANT)*tileVoro;
+ 
+  col.r = log(1.f/(1.f-min(col.g,1.0f)));
+
   comp = clamp(col,0.,1.);
 }`;
 

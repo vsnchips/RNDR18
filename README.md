@@ -1,15 +1,9 @@
 ## PS4 MDDN 342 2018
 
-## Stage 1
+## Stage 2 - Subdivision
 
-My goal is to investigate the possibilities of a nested voronoi pattern.
-What happens when a voronoi is used to represent zones on a map, and is
-subdivided upon levels of higher zoom?
-What happens to the borders?
+The next step is to make it zoomable. This will take some tweaking and iteration to 
+get the sense of scale right, and to manage the distinction between the perimeters in the macro direction
+and the emerging perimeters in the micro direction.
 
-I have now got as far as jittering the points infinitely at one level.
-It is interesting that the function is already discontinuous. 
-If you drag to the upper right you will notice some sharp edges.
-
-This breaks the "lipschitz condition" of having a continuously 
-differentiable function with a bounded derivative.
+I have changed to a honeycomb - like colorscheme, tinted to yellow with a bit of a warm red bloom
