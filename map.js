@@ -32,49 +32,9 @@ worldMap._p5_depth = 0.0;
 var hash = new L.Hash(worldMap);
 // console.log("Seed now", worldMap._p5_seed)
 
-// sloppy way to set tile size
-var g_tileSize = null;
-
-var s = function( p ) {
-
-  p.setup = function() {
-
-  //frameRate(60);
-  //canvas.style.visibility='hidden';
- // canvas.remove();
-
-  body = document.getElementsByTagName("body");
-
-  the_canvas = document.createElement("canvas");
-  the_canvas.width=960; the_canvas.height=480;
-  body[0].appendChild(the_canvas);
-  gc = the_canvas.getContext("webgl2" ,{preserveDrawingBuffer: true});
- 
-  the_canvas.onmousemove = function(ev){
-  mx = 2 * ev.clientX / the_canvas.width - 1;
-  my = 2 * ev.clientY / the_canvas.height - 1;
-    //console.log( mx );
-    // console.log( my );
-    // 
-  }
-    canvas = p.createCanvas(g_tileSize.x, g_tileSize.y);
-    p.noLoop();
-
-    gl_boilerplate_init ();
-
-// Controls
 
 
-
-
-
-
-
-
-
-
-  };
-
+/*
 var tiles = new L.GridLayer({continuousWorld: true});
 tiles.createTile = function(coords) {
   if (!("_hash_parsed" in worldMap)) {
@@ -120,6 +80,7 @@ tiles.createTile = function(coords) {
 tiles.on('tileunload', function(e){
   e.tile.rendering = false;
 })
+*/
 
 // tiles.on('tileload', function(e){
 //   /** @type {HTMLCanvasElement} */
@@ -139,7 +100,9 @@ tiles.on('tileunload', function(e){
 //   }
 // }, 1000)
 
-tiles.addTo(worldMap)
+
+//tiles.addTo(worldMap)
+
 
 var curLinkIndex = 0;
 
@@ -160,14 +123,18 @@ if (typeof tourSeed === 'undefined') {
 }
 
 function clickHome() {
-  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
+  //  worldMap.flyTo([tourPath[0][1], tourPath[0][2]], tourPath[0][0]);
+  view.x = tourPath [0][1];
+  view.y = tourPath [0][2];
+  worldMap._zoom = tourPath[0][0];
+
 }
 
-worldMap.globalFrameCount  = 0;
+//worldMap.globalFrameCount  = 0;
 
 if(typeof do_animation !== 'undefined' && do_animation) {
   (function doCounter() {
-    worldMap.globalFrameCount = worldMap.globalFrameCount + 1;
+  //  worldMap.globalFrameCount = worldMap.globalFrameCount + 1;
     requestAnimationFrame(doCounter);
   })()
 }
@@ -175,9 +142,9 @@ if(typeof do_animation !== 'undefined' && do_animation) {
 function clickDemo() {
   if(worldMap._p5_seed != tourSeed) {
     var center = worldMap.getCenter();
-    var zoom = worldMap.getZoom();
-    worldMap._p5_seed = tourSeed;
-    tiles.redraw();
+//    var zoom = worldMap.getZoom();
+   // worldMap._p5_seed = tourSeed;
+    //tiles.redraw();
     // worldMap.setView(center, zoom, {reset: true});
     curLinkIndex = 0;
   }
@@ -185,7 +152,7 @@ function clickDemo() {
     curLinkIndex = (curLinkIndex + 1) % tourPath.length
   }
   var curDest = tourPath[curLinkIndex]
-  worldMap.flyTo([curDest[1], curDest[2]], curDest[0]);
+  //worldMap.flyTo([curDest[1], curDest[2]], curDest[0]);
 }
 
 function clickReset() {
@@ -203,3 +170,9 @@ attrStr += '<a href="#" onclick="javascript:clickDemo();">tour</a>'
 attrib.addAttribution(attrStr)
 worldMap.addControl(attrib)
 
+//Map state init
+init_voronoi_array();
+
+// Front of house init
+resizeMap();
+do_a_frame();

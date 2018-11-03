@@ -18,6 +18,7 @@ uniform float u_Zoom;
 uniform vec2 u_nowView;
 uniform vec2 u_viewPort;
 
+uniform vec2 u_voro_ps[8];
 
 void main(void){
 
@@ -49,6 +50,7 @@ void main(void){
 
   float s1x = vol*sin(iTime+fa1*uv.x);
   float s1y = vol*sin(fa2*uv.y);
+
   float s2x = vol*sin(iTime+fb1*uv.x);
   float s2y = vol*sin(fb2*uv.y*fb2);
 
@@ -128,22 +130,19 @@ void main(void){
     }
   }
 
-
+ 
   //gather neighbors
-  for (int i = 0; i < NEIGHCOUNT; i ++ ){
-    the_voro_check.neighbors[i] = vec2(u_voro_ps[i*2],u_voro_ps[2*1]);
-    //the_voro_check.neighbors[i] = vec2(0,1);
-
+  for (int i = 0; i < 8; i ++ ){
+  the_voro_check.neighbors[i] = u_voro_ps[i];
+  //the_voro_check.neighbors[i] = vec2(0,1);
+  
   }
-
+ 
 
   col.rgb = vec3(
-      1. * voronoid ( uv *  2. ) 
-      );
+      1. * voronoid ( uv 20 ) 
+    );
 
-
-  col.b = 1.f * u_voro_ps[int(10.*iTime)%64];
-
+  
   comp = clamp(col,0.,1.);
 }`;
-

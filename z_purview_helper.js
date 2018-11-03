@@ -16,7 +16,7 @@ function saveBlocksImages(doZoom) {
   // background is flat white
   context.fillStyle="#FFFFFF";
   context.fillRect(0, 0, 960, 500);
-  context.drawImage(this.the_canvas, 0, 0, 960, 500);
+  context.drawImage(this.gl_canvas, 0, 0, 960, 500);
   // save to browser
   var downloadMime = 'image/octet-stream';
   var imageData = offscreenCanvas.toDataURL('image/jpeg');
@@ -43,23 +43,23 @@ function saveBlocksImages(doZoom) {
     if (sx < 0) {
       sx = 0;
     }
-    if (sx > this.the_canvas.width - sw) {
-      sx = this.the_canvas.width - sw;
+    if (sx > this.gl_canvas.width - sw) {
+      sx = this.gl_canvas.width - sw;
     }
     if (sy < 0) {
       sy = 0;
     }
-    if (sy > this.the_canvas.height - sh) {
-      sy = this.the_canvas.height - sh;
+    if (sy > this.gl_canvas.height - sh) {
+      sy = this.gl_canvas.height - sh;
     }
     // save to browser
-    context.drawImage(this.the_canvas, sx, sy, sw, sh, 0, 0, 230, 120);
+    context.drawImage(this.gl_canvas, sx, sy, sw, sh, 0, 0, 230, 120);
   }
   else {
     // now scaledown
-    var full_width = this.the_canvas.width;
-    var full_height = this.the_canvas.height;
-    context.drawImage(this.the_canvas, 0, 0, full_width, full_height, 0, 0, 230, 120);
+    var full_width = this.gl_canvas.width;
+    var full_height = this.gl_canvas.height;
+    context.drawImage(this.gl_canvas, 0, 0, full_width, full_height, 0, 0, 230, 120);
   }
   imageData = offscreenCanvas.toDataURL('image/png');
   imageData = imageData.replace('image/png', downloadMime);

@@ -17,43 +17,29 @@
         .leaflet-control-attribution {
           font-size: 24px !important;
         }
+        .leaflet-map-pane {
+        }
     </style>
+</head>
+<body onresize = "resizeMap()" onmousedown="catchClick(event)" onmousemove="mouseMove(event)" onmouseup="releaseClick()" onkeypress="saveBlocksImages()">
+    <div id="map"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/2.4.3/seedrandom.min.js"></script>
-    <script src="https://d3js.org/d3-random.v1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
     <script language="javascript" type="text/javascript" src="z_purview_helper.js"></script>
-    <script language="javascript" type="text/javascript" src="z_focused_random.js"></script>
-    <script src="vertex.glsl"></script>
-    <script src="frag_helpers.glsl"></script>
-    <script src="shaders.glsl"></script>
-    </head>
-
-<body style="background-color:white">
-
-<div id="map"></div>
-
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src="leaflet-hash.js"></script>
+
+    <script src="vertex.glsl"></script>
+    
+    <script src="frag_helpers.glsl"></script>
+    <script src="voronoi.glsl"></script>
+    <script src="frag_DeCast.glsl"></script>
+    <script src="shaders.glsl"></script>
+
+    <script src="setup.js"></script>
     <script src="drawgrid.js"></script>
     <script src="map.js"></script>
 
-  <div class="outer">
-<div class="inner" id="controls" height="480px">
-  <table>
-     <tr>
-        <td>Speed</td>
-        <td id='Speed'></td>
-      </tr>
-       <td>Gif Capture On</td>
-        <td id='gcap'></td?>
-    </table>
-</div>
-</div>
-</table>
-
-
 </body>
-
 </html>
