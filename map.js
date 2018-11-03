@@ -1,6 +1,3 @@
-
-
-
 var myCRS = L.extend({}, L.CRS.Simple, {
   transformation: new L.Transformation(1, 0,
     // -1, // works like expected
@@ -56,9 +53,8 @@ tiles.createTile = function(coords) {
   // calculate geographic coordinates of top left tile pixel
   myp5._L_nw = worldMap.unproject(myp5._L_nwPoint, coords.z)
 
-  //var tile = myp5.canvas;
-  var tile = the_canvas;
-//  tile.rendering = true;
+  var tile = myp5.canvas;
+  tile.rendering = true;
 
   if(typeof do_animation !== 'undefined' && do_animation) {
     (function doAnimate(){
@@ -158,9 +154,6 @@ function clickDemo() {
 function clickReset() {
   window.location.reload();
 }
-
-
-setup_the_canvas();
 
 attrib = new L.Control.Attribution
 attrib.setPrefix("")
