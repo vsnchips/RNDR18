@@ -21,11 +21,12 @@
         }
     </style>
 </head>
-<body onresize = "resizeMap()" onmousedown="catchClick(event)" onmousemove="mouseMove(event)" onmouseup="releaseClick()">
+<body onresize = "resizeMap()" onmousedown="catchClick(event)" onmousemove="mouseMove(event)" onmouseup="releaseClick()" onkeypress="saveBlocksImages()">
     <div id="map"></div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+    <script language="javascript" type="text/javascript" src="z_purview_helper.js"></script>
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <script src="leaflet-hash.js"></script>
 

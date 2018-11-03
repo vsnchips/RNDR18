@@ -23,18 +23,19 @@ var view_last = {x:0, y:0};
 var u_nowView = view;
 var u_Zoom=1;
 
-var u_vor_ps = new Array();
+var u_vor_ps = new Float32Array();
 
 function init_voronoi_array(){
 
-  u_vor_ps.clear();
+  u_vor_ps=[];
 
-  for (var i = 0; i < 1024; i++ ){
+  for (var i = 0; i < 64; i++ ){
     const voroRange = 2;
     const half_voro = voroRange/2;
 
-    var newVec = {x: Math.random() * voroRange - half_voro,
-                  y: Math.random() * voroRange - half_voro };
+    ///var newVec = [ Math.random() * voroRange - half_voro, Math.random() * voroRange - half_voro  ];
+    //var newVec = [ 0.2 * i + Math.random() * voroRange - half_voro, Math.random() * voroRange - half_voro , 0,0 ];
+    var newVec = [ 0.2 * i + Math.random() * voroRange - half_voro ];
     u_vor_ps.push(newVec);
   }
 }
@@ -78,6 +79,7 @@ function setup_gl_canvas( width, height) {
   gl_canvas.style.position="fixed";
 
   body[0].appendChild(gl_canvas);
+  //gc = gl_canvas.getContext("webgl2" ,{preserveDrawingBuffer: true});
   gc = gl_canvas.getContext("webgl2" ,{preserveDrawingBuffer: true});
  
   gl_boilerplate_init ();
@@ -96,36 +98,6 @@ function resizeMap(){
   viewSize.height = window.innerHeight;
 
   setup_gl_canvas(window.innerWidth, window.innerHeight)
-}
-
-
-
-function draw_the_map () {
-
-  var d = new Date();
-  var time = d.getTime();
-/*  //console.log ("mx" + mx);
-  if (mouseIsPressed) {
-    fill(0);
-  }
-  else {
-    fill(255);
-  }
-*/
-  // updates
-  var iTime = 1*time/30 * (1/2000);
-  //gc.uniform1f(gc.getUniformLocation(appgl.prog,"iTime"),time*5);
-  gc.uniform1f(gc.getUniformLocation(appgl.prog,"iTime"),100);
-
-  gc.uniform2f(gc.getUniformLocation(appgl.prog,"iMouse"), mx,my);
-  
-  gc.clearColor(0,0.5,0,1);
-  gc.clear(gc.COLOR_BUFFER_BIT);
-  gc.enableVertexAttribArray(viewQuad.vPosAttribPtr);
-  gc.drawArrays(gc.TRIANGLE_FAN,0,4);
-  gc.disableVertexAttribArray(viewQuad.vPosAttribPtr);
- 
-
 }
 
 function keyTyped() {

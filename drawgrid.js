@@ -48,6 +48,8 @@ function update(){
   u_Zoom = u_Zoom + (Math.pow(Math.E,-worldMap._zoom) - u_Zoom) * EASE;
 
 }
+
+var iTime;
 function draw_the_map(){
 
   frame++;
@@ -55,14 +57,15 @@ function draw_the_map(){
 
   // updates
   
-  var iTime = frame/30 * (1/20);
+  iTime = frame/30 * (1/20);
   //var iTime = 1 *  (1/2000);
+  gc.uniform2f(gc.getUniformLocation(appgl.prog,"iMouse"), mx,my);
   gc.uniform1f(gc.getUniformLocation(appgl.prog,"iTime"),iTime*5);
   gc.uniform1f(gc.getUniformLocation(appgl.prog,"u_Zoom"),u_Zoom);
   gc.uniform2f(gc.getUniformLocation(appgl.prog,"u_nowView"),u_nowView.x, u_nowView.y);
   gc.uniform2f(gc.getUniformLocation(appgl.prog,"u_viewPort"),viewSize.width,viewSize.height);
 
-  gc.uniform2f(gc.getUniformLocation(appgl.prog,"iMouse"), mx,my);
+  gc.uniform1fv(gc.getUniformLocation(appgl.prog,"u_voro_ps"),u_vor_ps);
   
   gc.clearColor(0,0.8,0,1);
   gc.clear(gc.COLOR_BUFFER_BIT);
