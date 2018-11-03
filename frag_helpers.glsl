@@ -46,23 +46,57 @@ vec2 jitter( in ivec2 uv, float volume){
 
 // Quantising the uv enforces consistency
 
+
+// The base case
 float nearestEccentric( vec2 p, float n, float volume, int quant ){
-  
   vec2 multHome = vec2(float(quant)) * p;
   ivec2 quantHome =  ivec2( floor (p*float(quant)) );
-
   float d = FAR;
   // Sample nxn neighborhood
   // It round the dimension up to the nearest odd number
-
   for (float i=float(quantHome.x)-n/2.f; i < float(quantHome.x)+n/2.f; i++){
     for (float j=float(quantHome.y)-n/2.f; j <float(quantHome.y)+n/2.f; j++){
       ivec2 tryCell = ivec2 (i,j) ;
+      
       d = min(d, length(multHome - jitter(tryCell, volume)));
     }
   }
   return d/float(quant);
 }
 
+// The recursive case
+// TODO: Make it iterative
+// This zooming version displays two or three levels at a time. It delegates the micro level
+// to the stage 1 finder.
+float nearestEccentric_WithZoom_radius( vec2 p, float n, float volume, int quant, float radius ){
 
+  vec2 multHome = vec2(float(quant)) * p;
+  ivec2 quantHome =  ivec2( floor (p*float(quant)) );
+  float d = FAR;
+  
+  // Transform the view to the coordinates of the neighborhood
+  vec2 tView = vec2(float(quant)) * u_nowView;
+
+  // Sample nxn neighborhood
+ 
+ // It round the dimension up to the nearest odd number
+  for (float i=float(quantHome.x)-n/2.f; i < float(quantHome.x)+n/2.f; i++){
+    for (float j=float(quantHome.y)-n/2.f; j <float(quantHome.y)+n/2.f; j++){
+
+      ivec2 tryCell = ivec2 (i,j) ;
+      vec2 jitPoint =  jitter(tryCell, volume);
+
+      float uv_Length = length(multHome - jitPoint);
+      float focus_Length = length(tView - jitPoint);
+      //
+
+  if (focus_Length < radius){ //Split this node it its close to the focus
+
+        d = min(d+1.f, 10.f*nearestEccentric(p,n,volume*LEVEL_RATIO_VOL, int(float(quant)*0.2f*LEVEL_RATIO_QUANT)));  
+      } else
+     d = min( d, uv_Length);
+    }
+  }
+  return d/float(quant);
+}
 `;

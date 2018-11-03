@@ -13,10 +13,13 @@ const float FAR = 99999999.f;
 const float VOLUME = 4.f;
 const float NEIGH_SIZE = 5.f * VOLUME;
 // CELLS PER UNIT UV
-const int QUANT = 2;                
-`;
+const int QUANT = 2; 
 
-var frag_body =`
+//rNESTING SETTINGS
+const float LEVEL_RATIO_VOL = 1.f/2.7f;
+const float LEVEL_RATIO_QUANT = 2.7f;
+
+const float FOCUS_RADIUS = 0.5;
 
 //uniforms
 uniform float iTime;
@@ -26,6 +29,10 @@ uniform float u_Zoom;
 uniform vec2 u_nowView;
 uniform vec2 u_viewPort;
 
+
+`;
+
+var frag_body =`
 
 void main(void){
 
@@ -160,7 +167,9 @@ void main(void){
 
 //////////////////////////   Stage 2
 
-  float tileVoro = nearestEccentric(uv, NEIGH_SIZE,VOLUME, QUANT);
+  //float tileVoro = nearestEccentric(uv, NEIGH_SIZE,VOLUME, QUANT);
+  //float tileVoro = nearestEccentric_WithZoom_radius(uv, NEIGH_SIZE,VOLUME, QUANT, FOCUS_RADIUS*u_Zoom);
+  float tileVoro = nearestEccentric_WithZoom_radius(uv, NEIGH_SIZE,VOLUME, 2*QUANT, u_Zoom*0.86f);
 
 //  col += 100.f*tileVoro;
 
@@ -168,7 +177,8 @@ void main(void){
  // col.br += 0.01*(jitter(ivec2(uv*100.f), VOLUME));
 
   //col.g += random2D( floor(vec2(uv*100.f)) );
-
+  
+ 
   col.g += float(QUANT)*tileVoro;
  
   col.r = log(1.f/(1.f-min(col.g,1.0f)));
