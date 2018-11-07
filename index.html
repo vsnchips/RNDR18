@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>  
+<head>
+    <title>17.2.MDDN342 PS4</title>
+    <meta charset="utf-8" />
+</head>
+<body id="the_body" onresize = "resizeMap()" onmousedown="catchClick(event)" onmousemove="mouseMove(event)" onmouseup="releaseClick()" onkeypress="saveBlocksImages()">
+    <div id="map"></div>
+	
+    <!-- media source elements -->
+    <video autoplay="true" id="webcamElement" width=1920 height=1080 style="position:absolute; z-index:0;"></video>
+    <script language="javascript" type="text/javascript" src="videoelement.js"></script>	
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.js"></script>
+    <script language="javascript" type="text/javascript" src="z_purview_helper.js"></script>
+
+    <script src="vertex.glsl"></script>
+    
+    <script src="frag_helpers.glsl"></script>
+    <script src="voronoi.glsl"></script>
+    <script src="frag_DeCast.glsl"></script>
+    <script src="shaders.glsl"></script>
+    <script src="frag_grabalpha.glsl"></script>
+    <script src="frag_fb.glsl"></script>
+    <script src="frag_buffer_restore.glsl"></script>
+
+    <script src="setup.js"></script>
+    <script src="drawgrid.js"></script>
+    <script src="map.js"></script>
+
+</body>
+</html>
