@@ -65,7 +65,20 @@ void main(void){
 
   comp = state;
   comp = swap;
-  comp.rgb = 1.-vec3(swap.a) + state.rgb*0.0001 + webcam.rgb*0.0001;
+
+//BASE COLOR
+    vec3 base =vec3(0.35,0.32,0.4);
+
+    comp.rgb = 1.-vec3(swap.a) + state.rgb*0.0001 + webcam.rgb*0.0001;
+
+//VORONOI
+
+#define VOR_N 6.
+  float vor = nearestEccentric_displaced(tuv,VOR_N, 1.0, 20 , u_state_tex);
+
+  comp.rgb = 80.* vor*base + 0.2*comp.rgb;
+
+ // comp.rgb += 0.1*webcam.rgb;
 
   comp.a = 1.0;
 
