@@ -163,5 +163,6 @@ function draw_the_backdrop(){
 }
 
 function draw_the_branding(){
+  logo_ctx.clearRect(0,0,1920,1080);
   logo_ctx.drawImage(logo_vec,0,0); 
 }

@@ -63,13 +63,10 @@ void main(void){
  // comp.r = swap.a;
  // comp.b = state.a;
 
-  comp = state;
-  comp = swap;
-
 //BASE COLOR
-    vec3 base =vec3(0.35,0.32,0.4);
-
-    comp.rgb = 1.-vec3(swap.a) + state.rgb*0.0001 + webcam.rgb*0.0001;
+    vec3 base =vec3(0.35,0.32,0.41);
+    comp = vec4(0.);
+//    comp.rgb = 1.-vec3(swap.a) + state.rgb*0.0001 + webcam.rgb*0.0001;
 
 //VORONOI
 
@@ -79,8 +76,10 @@ void main(void){
   
 // POST - COLORING
 
+
   //comp.rgb *= pow(length(comp.rgb),3.0);
-  comp.rgb = 5.* vor*base + 0.2*comp.rgb;
+//  comp.rgb = 7.* min(vor,1.0)*base + 0.1*comp.rgb;
+  comp.rgb = base*0.2 + 5.* min(vor,1.0)*base;
   comp.a = 1.0;
 
   /*
