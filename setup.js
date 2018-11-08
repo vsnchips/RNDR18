@@ -34,7 +34,9 @@ var u_Zoom=1;
 var u_vor_ps = new Float32Array();
 
 // Vector Stuff
-var logo_canvas = { width : 1920, height: 1080};
+var logo_canvas = { width : 1920, height: 1080
+
+};
 //var logo_canvas = { width : window.innerWidth, height: window.innerHeight};
 var logo_ctx;
 var logo_vec = new Image();
@@ -103,6 +105,12 @@ function releaseClick(){
 
 function setup_logo_canvas( width, height) {
   body = document.getElementsByTagName("body");
+  body[0].style.overflow="hidden";
+  body[0].style.overflowX="hidden";
+  body[0].style.overflowY="hidden";
+  body[0].style.margin=0;
+  body[0].style.padding=0;
+
   //Remove old canvases
   if (gl_canvas.parentNode != null) gl_canvas.parentNode.removeChild(gl_canvas); 
   if (logo_canvas.parentNode!= null) logo_canvas.parentNode.removeChild(logo_canvas); 

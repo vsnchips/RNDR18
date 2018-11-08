@@ -1,8 +1,8 @@
 var frag_mix_feedback=`
 
 //#define FADE 0.999
-#define FADE 0.99
-#define VOL 0.9 
+#define FADE 0.985
+#define VOL 10.0 
 
 void main(void){
   
@@ -105,7 +105,7 @@ void main(void){
        0.20, 0.20, -0.20,
        0.20,  -1.6,  0.20,
         0.20,  0.20,  0.20
-    );
+    )ncmd;
 */
 
     float kernel_diff[9] = float[](
@@ -120,6 +120,9 @@ void main(void){
     vec3 diff = abs( webcam.rgb - swap.rgb );
     float newdiff = VOL * length(diff);
 
+    //clamp the diff
+    newdiff = min(newdiff,2.);
+
   float der = 0.;
  // der *= 0.2;
   float conv_total = 0.0;
@@ -128,6 +131,8 @@ void main(void){
   for (int i = 0 ; i < 9 ; i++){
       conv_total = max( conv_total, FADE * last_neighborhood[i]);
   }
+
+      conv_total = min(conv_total,1.0);
 
     //conv_total = abs(conv_total);
     der += conv_total;
