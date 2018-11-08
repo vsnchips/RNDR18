@@ -65,7 +65,7 @@ void main(void){
 
 //BASE COLOR
     //vec3 base =vec3(0.35,0.32,0.41);
-    vec3 base = vec3(0.31,0.26,0.41);
+    vec3 base = vec3(0.29,0.26,0.41);
     comp = vec4(0.);
 //    comp.rgb = 1.-vec3(swap.a) + state.rgb*0.0001 + webcam.rgb*0.0001;
 
