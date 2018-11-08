@@ -1,8 +1,8 @@
 var frag_mix_feedback=`
 
 //#define FADE 0.999
-#define FADE 0.993
-#define VOL 3.0 
+#define FADE 0.99
+#define VOL 0.9 
 
 void main(void){
   
@@ -119,9 +119,6 @@ void main(void){
     // Current velocity
     vec3 diff = abs( webcam.rgb - swap.rgb );
     float newdiff = VOL * length(diff);
-
-    //clamp the diff
-    newdiff = min(newdiff,1.0);
 
   float der = 0.;
  // der *= 0.2;

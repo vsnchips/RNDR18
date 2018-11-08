@@ -75,7 +75,12 @@ void main(void){
 
 #define VOR_N 6.
   float vor = nearestEccentric_displaced(tuv,VOR_N, 1.0, 20 , u_state_tex);
-  comp.rgb = 8.* vor*base + 0.2*comp.rgb;
+
+  
+// POST - COLORING
+
+  //comp.rgb *= pow(length(comp.rgb),3.0);
+  comp.rgb = 5.* vor*base + 0.2*comp.rgb;
   comp.a = 1.0;
 
   /*
