@@ -33,8 +33,6 @@ var u_nowView = {x:0, y:0};
 var u_Zoom=1;
 var u_vor_ps = new Float32Array();
 
-
-
 // Vector Stuff
 var logo_canvas = { width : 1920, height: 1080};
 //var logo_canvas = { width : window.innerWidth, height: window.innerHeight};
@@ -95,7 +93,6 @@ function catchClick( e ){
     MODE = MODE%3;
     console.log(`Draw mode ` + MODE);
   }
-
 }
 
 function releaseClick(){

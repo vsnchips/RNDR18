@@ -36,7 +36,7 @@ function do_a_frame(){
   update();
   update_the_webcam_texture();
 
-  // Buffer Juggling
+  //////// Buffer Juggling /////////////
   
   // Restore Pass
     // Copy swap to state frame
@@ -51,11 +51,9 @@ function do_a_frame(){
 //Uniforms
   uniforms_toprogram(appgl.fbprog);
   draw_the_state();
-  
 
   // Bind the canvas
  gc.bindFramebuffer(gc.FRAMEBUFFER,null);
-  //gc.bindFramebuffer(gc.FRAMEBUFFER, gl_stateSheet.frameBuff);
 
   //Mode switch between programs
   if (MODE==0){
@@ -63,7 +61,6 @@ function do_a_frame(){
   gc.bindTexture(gc.TEXTURE_2D,gl_stateSheet.texture);
   gc.activeTexture(gc.TEXTURE2);
   gc.bindTexture(gc.TEXTURE_2D,gl_swapSheet.texture);
-  
     draw_the_backdrop();
 
   }
@@ -81,6 +78,7 @@ function do_a_frame(){
   gc.bindTexture(gc.TEXTURE_2D,gl_swapSheet.texture);
     draw_restore_buffer();  
   }
+
   //Branding layer
   draw_the_branding();
   // Next Frame

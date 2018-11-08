@@ -37,7 +37,7 @@ var frag_output_main =`
 void main(void){
 
   //Get the samples
-  vec2 tuv = fragCoords/2. + 0.5;
+  vec2 tuv = -fragCoords/2. + 0.5;
   vec4 state = texture(u_state_tex,tuv);
   vec4 swap = texture(u_swap_tex,tuv);
   vec4 webcam = texture(u_webcam_tex,tuv);
@@ -75,14 +75,12 @@ void main(void){
 
 #define VOR_N 6.
   float vor = nearestEccentric_displaced(tuv,VOR_N, 1.0, 20 , u_state_tex);
-
-  comp.rgb = 80.* vor*base + 0.2*comp.rgb;
-
- // comp.rgb += 0.1*webcam.rgb;
-
+  comp.rgb = 8.* vor*base + 0.2*comp.rgb;
   comp.a = 1.0;
 
- // comp.a = state.a;
-//comp.a=0.8;
-
+  /*
+  comp.rgb=vec3(0.);
+  comp.g = 1.0-(u_viewPort.y/1080.);
+  comp.r = 1.0-(u_viewPort.x/1920.);
+  */
 }`;

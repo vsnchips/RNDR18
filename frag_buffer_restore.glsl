@@ -7,6 +7,7 @@ void main(void){
   vec4 state = texture(u_state_tex,tuv);
 
  comp = state;
+ //comp.a += 0.1;
 
 }
 `
