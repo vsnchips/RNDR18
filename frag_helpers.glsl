@@ -64,6 +64,31 @@ float nearestEccentric( vec2 p, float n, float volume, int quant ){
   return d/float(quant);
 }
 
+
+
+// The displaced case
+float nearestEccentric_displaced( vec2 p, float n, float volume, int quant, sampler2D displace ){
+
+  vec2 multHome = vec2(float(quant)) * p;
+  ivec2 quantHome =  ivec2( floor (p*float(quant)) );
+  float d = FAR;
+  
+  // Sample nxn neighborhood
+  // It round the dimension up to the nearest odd number
+  
+  for (float i=float(quantHome.x)-n/2.f; i < float(quantHome.x)+n/2.f; i++){
+    for (float j=float(quantHome.y)-n/2.f; j <float(quantHome.y)+n/2.f; j++){
+      ivec2 tryCell = ivec2 (i,j) ;
+      vec2 jitPoint = jitter(tryCell, volume);
+
+    float samp_Alpha = 0.5+15.0*texture(displace, jitPoint/float(quant)).a;
+  
+    d = min(d, samp_Alpha*length(multHome - jitPoint));
+    }
+  }
+  return d/float(quant);
+}
+
 // The recursive case
 // TODO: Make it iterative
 // This zooming version displays two or three levels at a time. It delegates the micro level
@@ -89,7 +114,6 @@ float nearestEccentric_WithZoom_radius( vec2 p, float n, float volume, int quant
 
       float uv_Length = length(multHome - jitPoint);
       float focus_Length = length(tView - jitPoint);
-      //
 
   if (focus_Length/float(quant) < u_Zoom*radius){ //Split this node it its close to the focus
 
