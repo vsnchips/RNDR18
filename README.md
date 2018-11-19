@@ -2,7 +2,7 @@
 
 The branding team for the end of year exhibition team requested my help in designing the show.
 The brief was to present the exhibition's logo on an animated background that would react to user input.\
-      I decided the procedural map project !(http://www.purview.nz/versions/56939272a02f941fe75c67d060af36b7.html)  would be a good basis pattern to work with, so I removed the map navigation code, added a video element, and wrote a new drawing loop with multiple render targets.
+      I decided the procedural map project http://www.purview.nz/versions/56939272a02f941fe75c67d060af36b7.html would be a good basis pattern to work with, so I removed the map navigation code, added a video element, and wrote a new drawing loop with multiple render targets.
 
 A "process" shader implements simple motion detection by comparing the current video frame to the last framed
 saved in the swap buffer.
